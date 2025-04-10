@@ -90,7 +90,7 @@ const App = () => {
         .remove(id)
         .then(response => {
           console.log(response)
-          setPersons(persons.filter(p => p.id !== response.id))
+          setPersons(persons.filter(p => p.id !== id))
         })
     }
   }
