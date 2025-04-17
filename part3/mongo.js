@@ -6,34 +6,39 @@ if (process.argv.length < 3) {
 }
 
 const password = process.argv[2]
+const entryName = process.argv[3]
+const entryNumber = process.argv[4]
 
-// const url = `mongodb+srv://fullstack:${password}@cluster0.a5qfl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-// const url = `mongodb+srv://tim:${password}@mymongocluster.nimomtq.mongodb.net/noteApp?retryWrites=true&w=majority&appName=MyMongoCluster`
-const url = `mongodb+srv://tim:${password}@MyMongoCluster.nimomtq.mongodb.net/sample_mflix`
-
-// mongoose.set('strictQuery',false)
+const url = `mongodb+srv://tim:${password}@MyMongoCluster.nimomtq.mongodb.net/phonebook`
 
 mongoose.connect(url)
-.then(() => {
-    console.log('connected to mongodb successfully')
-})
-.catch(error => {
+  .catch(error => {
     console.log(error)
+  })
+
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
 })
 
-// const noteSchema = new mongoose.Schema({
-//   content: String,
-//   important: Boolean,
-// })
+const Person = mongoose.model('Person', personSchema)
 
-// const Note = mongoose.model('Note', noteSchema)
+if (process.argv.length === 5) {
+  const person = new Person({
+    name: entryName,
+    number: entryNumber
+  })
 
-// const note = new Note({
-//   content: 'HTML is easy',
-//   important: true,
-// })
-
-// note.save().then(result => {
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
+  person.save().then(result => {
+    console.log(`added ${result.name} number ${result.number} to phonebook`)
+    mongoose.connection.close()
+  })
+} else {
+  Person.find({}).then(result => {
+    console.log('phonebook:')
+    result.forEach(p => {
+      console.log(`${p.name} ${p.number}`)
+    })
+    mongoose.connection.close()
+  })
+}

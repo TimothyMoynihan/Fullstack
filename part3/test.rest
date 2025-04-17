@@ -30,3 +30,20 @@ Content-Type: application/json
     "name": "Fred Simpson",
     "number": "123"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "fred",
+    "number": "123-456-7890"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "number": "12121212"
+}

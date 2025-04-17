@@ -46,6 +46,9 @@ const App = () => {
       personService
         .create({name: newName, number: newNumber})
         .then(response => {
+          // reset the fields
+          setNewName("")
+          setNewNumber("")
           setPersons(persons.concat(response))
           setNotificationType('success')
           setNotificationMessage(`Added ${response.name}`)
@@ -53,9 +56,14 @@ const App = () => {
             setNotificationMessage(null)
           }, 5000)
         })
-      // reset the fields
-      setNewName("")
-      setNewNumber("")
+        .catch(e => {
+          setNotificationType('failure')
+          setNotificationMessage(e.response.data.error)
+          console.log(e.response.data.error)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
+        })
     } else {
       // alert the useer to the duplicate user
       if(confirm(`${newName} is already added to phonebook, replace the old number with new one?`)) {
