@@ -1,0 +1,33 @@
+
+### Root Request
+GET https://nds2yj-3000.csb.app
+
+### All Users
+GET https://nds2yj-3000.csb.app/api/persons
+
+### API Information
+GET https://nds2yj-3000.csb.app/info
+
+###
+GET https://nds2yj-3000.csb.app/api/persons/2
+
+###
+DELETE https://nds2yj-3000.csb.app/api/persons/3
+
+### 
+POST https://nds2yj-3000.csb.app/api/persons
+Content-Type: application/json
+
+{
+    "name": "Fred Simpson",
+    "number": "123-456-7890"
+}
+
+###
+PUT https://nds2yj-3000.csb.app/persons/914
+Content-Type: application/json
+
+{
+    "name": "Fred Simpson",
+    "number": "123"
+}
