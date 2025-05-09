@@ -64,7 +64,7 @@ blogsRouter.delete('/:id', async (request, response) => {
   if ( blog.user.toString() === user.id.toString()) {
     // console.log('found match... you may delete')
     await Blog.findByIdAndDelete(request.params.id)
-    user.blogs = user.blogs.filter((b) => b !== request.params.id)
+    user.blogs = user.blogs.filter((b) => b._id.toString() !== request.params.id)
     await user.save()
     response.status(204).end()
   } else {
