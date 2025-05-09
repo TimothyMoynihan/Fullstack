@@ -1,0 +1,119 @@
+### Base Test
+GET http://localhost:3003/
+
+### Create an entry
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "My First Blog Post",
+    "author": "ME",
+    "url": "http://localhost/something",
+    "likes": 4
+}
+
+### Show all entries
+GET http://localhost:3003/api/blogs
+
+### Create a second entry
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "My Next Blog Post",
+    "author": "ME",
+    "url": "http://localhost/somethingSpecial",
+    "likes": 123
+}
+
+### Get a single entry
+GET http://localhost:3003/api/blogs/68015f23d09913e7015591aa
+
+###
+GET http://localhost:3003/api/users
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "mluukkai",
+    "name": "Matti Luukkainen",
+    "password": "salainen"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "fred",
+    "name": "Fred Simpson",
+    "password": "secret"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "q",
+    "name": "Q",
+    "password": "NotValid"
+}
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "mluukkai",
+    "password": "salainen"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2ODE1MmZlMGEwNWFhYzM2ZGIxMjY5ZDUiLCJpYXQiOjE3NDY3MzMzODl9.migsgdo9ypsNpkxkCyeDt_q8De8YCIPeiWSqBFaYCYg
+
+{
+    "title": "mluukkai User Second Blog Post",
+    "author": "mluukkai",
+    "url": "http://localhost/somethingUserSpecific2"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2ODE1MmZlMGEwNWFhYzM2ZGIxMjY5ZDUiLCJpYXQiOjE3NDY2NDQwMzZ9.ZjucDaQWXUkc1DRNCMQAZ48a-
+
+{
+    "title": "Bad User Blog Post",
+    "author": "ME",
+    "url": "http://localhost/somethingUserSpecific"
+}
+
+### Delete by user who created it
+DELETE http://localhost:3003/api/blogs/681e5b016ce45fe3ca016acf
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2ODE1MmZlMGEwNWFhYzM2ZGIxMjY5ZDUiLCJpYXQiOjE3NDY3MzMzODl9.migsgdo9ypsNpkxkCyeDt_q8De8YCIPeiWSqBFaYCYg
+
+### 4.23 Test hoping for a failure 401
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Bad User Blog Post",
+    "author": "ME",
+    "url": "http://localhost/somethingUserSpecific"
+}
